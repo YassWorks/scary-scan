@@ -5,12 +5,12 @@ import nmap
 from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime
 
-API_KEY = "6ackYFNANSBHVgmg2vFmp5GTo8DPEzez"
+API_KEY = "API_KEY"
 api = shodan.Shodan(API_KEY)
 
 app = FastAPI()
 
-MONGO_URL = "mongodb+srv://admn:admn@cluster0.k6vhm.mongodb.net/?retryWrites=true&w=majority"
+MONGO_URL = "MONGO_URL"
 client = AsyncIOMotorClient(MONGO_URL)
 db = client.scan_results_db
 
