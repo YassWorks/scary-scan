@@ -8,16 +8,13 @@ export const Output = ({ data, serviceName }) => {
     }
 
     if (serviceName === "Nmap") {
-        // Extract the nmap_result from the raw data
         const nmapResult = data.nmap_result;
         if (!nmapResult) return <div>No Nmap data available</div>;
 
-        // Check that nmap scan stats are available
         const scanStats = nmapResult.nmap && nmapResult.nmap.scanstats;
         if (!scanStats)
             return <div>No scan statistics available in Nmap results.</div>;
 
-        // Check that scan data exists and has at least one host entry
         const scanData = nmapResult.scan;
         if (!scanData)
             return <div>No scan data available in Nmap results.</div>;
@@ -26,7 +23,6 @@ export const Output = ({ data, serviceName }) => {
         if (!hostKeys.length)
             return <div>No host data available in Nmap results.</div>;
 
-        // Using the first host's data for display
         const hostKey = hostKeys[0];
         const scanHostData = scanData[hostKey];
         if (!scanHostData)
@@ -41,7 +37,7 @@ export const Output = ({ data, serviceName }) => {
                 <div className="res">
                     <h2>Nmap Scan Results</h2>
 
-                    <h3>Scan Summary</h3>
+                    <h3 style={{ color: "Green" }}>Scan Summary</h3>
                     <p>
                         <strong>Scan Time:</strong> {scanStats.timestr}
                     </p>
@@ -54,7 +50,7 @@ export const Output = ({ data, serviceName }) => {
                         {scanStats.totalhosts}
                     </p>
 
-                    <h3>Host Information</h3>
+                    <h3 style={{ color: "Green" }}>Host Information</h3>
                     <p>
                         <strong>IP Address:</strong>{" "}
                         {addresses ? addresses.ipv4 : "N/A"}
@@ -78,7 +74,7 @@ export const Output = ({ data, serviceName }) => {
                             : "N/A"}
                     </p>
 
-                    <h3>Open Ports &amp; Services</h3>
+                    <h3 style={{ color: "Green" }}>Open Ports &amp; Services</h3>
                     {tcp && Object.keys(tcp).length > 0 ? (
                         Object.keys(tcp).map((port) => {
                             const portData = tcp[port];
@@ -118,7 +114,7 @@ export const Output = ({ data, serviceName }) => {
                                             )}
                                         </div>
                                     )}
-                                    <hr/>
+                                    <hr />
                                 </div>
                             );
                         })
@@ -128,7 +124,7 @@ export const Output = ({ data, serviceName }) => {
 
                     {osmatch && osmatch.length > 0 && (
                         <>
-                            <h3>OS Detection</h3>
+                            <h3 style={{ color: "Green" }}>OS Detection</h3>
                             {osmatch.map((os, index) => (
                                 <div
                                     key={index}

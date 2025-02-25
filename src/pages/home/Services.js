@@ -4,9 +4,9 @@ import { useLocation } from "react-router-dom";
 
 export const ServiceButtons = ({ services }) => {
     const location = useLocation();
-    const [ipAddress, setIpAddress] = useState(""); // State for IP address input
-    const [serviceData, setServiceData] = useState(null); // State for service data
-    const [activeService, setActiveService] = useState(null); // Track active service
+    const [ipAddress, setIpAddress] = useState("");
+    const [serviceData, setServiceData] = useState(null);
+    const [activeService, setActiveService] = useState(null);
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -16,6 +16,8 @@ export const ServiceButtons = ({ services }) => {
         }
     }, [location]);
 
+    // idk if this is the best way to do this
+    // but it worked :D
     const getIpFromUser = async (serviceName) => {
         try {
             const response = await fetch(
@@ -23,12 +25,16 @@ export const ServiceButtons = ({ services }) => {
             );
             const data = await response.json();
             if (response.ok) {
-                setServiceData({ data, serviceName }); // Include service name in state
+                // include service name in state so we can distnguish between services in Output.js
+                setServiceData({ data, serviceName });
             } else {
                 setServiceData({ error: data.error, serviceName });
             }
         } catch (err) {
-            setServiceData({ error: "Error connecting to backend", serviceName });
+            setServiceData({
+                error: "Error connecting to backend",
+                serviceName,
+            });
         }
     };
 
@@ -55,13 +61,17 @@ export const ServiceButtons = ({ services }) => {
                                 className="Button"
                                 onClick={() =>
                                     setActiveService(
-                                        service.id === activeService ? null : service.id
+                                        service.id === activeService
+                                            ? null
+                                            : service.id
                                     )
                                 }
                                 style={{
                                     transition: "transform 0.3s ease",
                                     transform:
-                                        activeService === service.id ? "translateX(-100px)" : "translateX(0)",
+                                        activeService === service.id
+                                            ? "translateX(-100px)"
+                                            : "translateX(0)",
                                 }}
                             >
                                 {service.name}
@@ -71,21 +81,31 @@ export const ServiceButtons = ({ services }) => {
                                 <>
                                     <input
                                         value={ipAddress}
-                                        onChange={(e) => setIpAddress(e.target.value)}
+                                        onChange={(e) =>
+                                            setIpAddress(e.target.value)
+                                        }
                                         placeholder="IP/URL"
                                         style={{ marginLeft: "10px" }}
                                     />
                                     <button
                                         className="submitButtons1"
                                         onClick={() => setActiveService(null)}
-                                        style={{ color: "red", marginLeft: "5px" }}
+                                        style={{
+                                            color: "red",
+                                            marginLeft: "5px",
+                                        }}
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         className="submitButtons2"
-                                        onClick={() => getIpFromUser(service.name)}
-                                        style={{ color: "green", marginLeft: "5px" }}
+                                        onClick={() =>
+                                            getIpFromUser(service.name)
+                                        }
+                                        style={{
+                                            color: "green",
+                                            marginLeft: "5px",
+                                        }}
                                     >
                                         Send
                                     </button>
@@ -97,7 +117,10 @@ export const ServiceButtons = ({ services }) => {
                     </div>
                 ))}
             </div>
-            <Output data={serviceData?.data} serviceName={serviceData?.serviceName} />
+            <Output
+                data={serviceData?.data}
+                serviceName={serviceData?.serviceName}
+            />
         </div>
     );
 };

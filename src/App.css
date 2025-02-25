@@ -126,8 +126,6 @@ a:hover {
     margin: 30px;
 }
 
-/* TODO: add a fixed area for outpout */
-
 #history {
     font-family: "VT323", monospace;
     text-align: left;
@@ -136,6 +134,28 @@ a:hover {
     padding: 5px;
     margin: 30px;
 }
+
+#hist {
+    font-family: "VT323", monospace;
+    background: #1212129c;
+    text-align: left;
+    color: rgb(121, 121, 121);;
+    max-height: 175px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+#select_service {
+    font-family: "VT323", monospace;
+    font-size: 17px;
+    background-color: rgba(2, 27, 0, 0.905);
+    color: rgb(121, 121, 121);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* TODO style the options too. */
 
 .res {
     font-family: "VT323", monospace;
