@@ -4,13 +4,17 @@ import shodan
 import nmap
 from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime
+from dotenv import load_dotenv
+import os
 
-API_KEY = "API_KEY"
+load_dotenv()
+
+API_KEY = os.getenv("SHODAN_API_KEY")
 api = shodan.Shodan(API_KEY)
 
 app = FastAPI()
 
-MONGO_URL = "MONGO_URL"
+MONGO_URL = os.getenv("MONGO_URL")
 client = AsyncIOMotorClient(MONGO_URL)
 db = client.scan_results_db
 
