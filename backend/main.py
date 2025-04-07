@@ -64,7 +64,7 @@ async def get_nmap_info(ip: str):
     
 
 @app.get("/history/shodan")
-async def get_history(query: str = ""):
+async def get_shodan_history(query: str = ""):
     if query:
         filter = {"data": {"$regex": query, "$options": "i"}}
     else:
@@ -79,7 +79,7 @@ async def get_history(query: str = ""):
 
 
 @app.get("/history/nmap")
-async def get_history(query: str = ""):
+async def get_nmap_history(query: str = ""):
     if query:
         filter = {"data": {"$regex": query, "$options": "i"}}
     else:
